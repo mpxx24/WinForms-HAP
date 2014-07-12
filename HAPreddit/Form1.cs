@@ -39,9 +39,10 @@ namespace HAPreddit
         {
             var listaRekordow = Znajdz();
             var licznik = 0;
+            richTextBox1.Clear();
             foreach (var rekordy in listaRekordow)
             {
-                textBox1.Text += rekordy[licznik].nazwa; // + Environment.NewLine + Environment.NewLine;
+                richTextBox1.Text += rekordy.nazwa + Environment.NewLine + Environment.NewLine;
             }
         }
     }
