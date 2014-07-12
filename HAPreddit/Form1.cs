@@ -29,10 +29,7 @@ namespace HAPreddit
 
             for (int i = 0; i < pictures.Count; i++)
             {
-                for (int j = 0; j < listaRekordow.Count; j++)
-                {
-                    listaRekordow[i].picUrl = pictures[i].Attributes["src"].Value;
-                }
+                listaRekordow[i].picUrl = pictures[i].Attributes["src"].Value;
             }
 
             return listaRekordow;
