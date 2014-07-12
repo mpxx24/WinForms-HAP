@@ -18,7 +18,7 @@ namespace HAPreddit
             var linki = dokument.DocumentNode.Descendants("a").Where(x => x.Attributes.Contains("class") 
                 && x.Attributes["class"].Value.Contains("title may-blank")).ToList();
             var pictures = dokument.DocumentNode.Descendants("img").Where(x => x.Attributes.Contains("src")).ToList();
-
+            
             var listaRekordow = new List<Rekordy>();
             foreach (var link in linki)
             {
@@ -31,7 +31,7 @@ namespace HAPreddit
             {
                 for (int j = 0; j < listaRekordow.Count; j++)
                 {
-                    listaRekordow[j].picUrl = pictures[i].InnerText;
+                    listaRekordow[j].picUrl = pictures[i].Attributes["src"].Value;
                 }
             }
 
@@ -46,32 +46,42 @@ namespace HAPreddit
         private void button1_Click(object sender, EventArgs e)
         {
             //1st
+            var selfPost = false;
+            var outsidePost = false;
             var listaRekordow = Znajdz();
             var buforNazwa = new List<string>();
             var buforPic = new List<string>();
             var buforAdres = new List<string>();
             richTextBox1.Clear();
+
             foreach (var rekord in listaRekordow)
             {
                 buforNazwa.Add(rekord.nazwa);
                 buforPic.Add(rekord.picUrl);
                 buforAdres.Add(rekord.adres);
             }
-            richTextBox1.Text = buforNazwa[licznik] + buforPic[licznik];
-            pictureBox1.ImageLocation = buforPic[licznik];
 
             if (buforAdres[licznik].Contains("/r/csharp/"))
             {
                 //selfpost
+                selfPost = true;
                 pictureBox2.BackColor = Color.Lime;
                 pictureBox3.BackColor = Color.Red;
+
+                richTextBox1.Text = buforNazwa[licznik];
+                pictureBox1.ImageLocation = buforPic[licznik];
             }
             else
             {
                 //non-reddit link
+                outsidePost = true;
                 pictureBox2.BackColor = Color.Red;
                 pictureBox3.BackColor = Color.Lime;
+
+                richTextBox1.Text = buforNazwa[licznik] + "\n" + buforAdres[licznik]; // \n -> Environment.NewLine
+                pictureBox1.ImageLocation = buforPic[licznik];
             }
+
         }
 
         private void next_Click(object sender, EventArgs e)
@@ -100,5 +110,6 @@ namespace HAPreddit
             }
             
         }
+
     }
 }
