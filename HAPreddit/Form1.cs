@@ -13,6 +13,7 @@ namespace HAPreddit
 {
     public partial class Form1 : Form
     {
+        public int licznik = 0;
         public static IEnumerable<Rekordy> Znajdz() 
         {
             var strona = new HtmlWeb() { AutoDetectEncoding = false, OverrideEncoding = Encoding.GetEncoding("iso-8859-2") };
@@ -22,8 +23,7 @@ namespace HAPreddit
             var listaRekordow = new List<Rekordy>();
             foreach (var link in linki)
             {
-                var rekord = new Rekordy();
-                rekord.nazwa = link.InnerText;
+                var rekord = new Rekordy() { nazwa = link.InnerText };
                 listaRekordow.Add(rekord);
             }
 
@@ -37,13 +37,34 @@ namespace HAPreddit
 
         private void button1_Click(object sender, EventArgs e)
         {
+            //1st
             var listaRekordow = Znajdz();
-            var licznik = 0;
+            var bufor = new List<string>();
             richTextBox1.Clear();
-            foreach (var rekordy in listaRekordow)
+            foreach (var rekord in listaRekordow)
             {
-                richTextBox1.Text += rekordy.nazwa + Environment.NewLine + Environment.NewLine;
+                bufor.Add(rekord.nazwa);
             }
+            richTextBox1.Text = bufor[licznik];
+        }
+
+        private void next_Click(object sender, EventArgs e)
+        {
+            licznik++;
+            button1.PerformClick();
+        }
+
+        private void prev_Click(object sender, EventArgs e)
+        {
+            if (licznik >= 0)
+            {
+                licznik--;
+            }
+            else
+            {
+                licznik = 0;
+            }
+            button1.PerformClick();
         }
     }
 }
