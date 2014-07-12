@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using HtmlAgilityPack;
 
@@ -50,21 +46,29 @@ namespace HAPreddit
 
         private void next_Click(object sender, EventArgs e)
         {
-            licznik++;
-            button1.PerformClick();
+            if (richTextBox1.Text != "")
+            {
+                licznik++;
+                button1.PerformClick();
+            }
+            
         }
 
         private void prev_Click(object sender, EventArgs e)
         {
-            if (licznik >= 0)
+            if (richTextBox1.Text != "")
             {
-                licznik--;
+                if (licznik > 0)
+                {
+                    licznik--;
+                }
+                else
+                {
+                    licznik = 0;
+                }
+                button1.PerformClick();
             }
-            else
-            {
-                licznik = 0;
-            }
-            button1.PerformClick();
+            
         }
     }
 }
