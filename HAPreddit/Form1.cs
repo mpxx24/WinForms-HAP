@@ -16,11 +16,21 @@ namespace HAPreddit
             var dokument = strona.Load("http://www.reddit.com/r/csharp");
             var linki = dokument.DocumentNode.Descendants("a").Where(x => x.Attributes.Contains("class") 
                 && x.Attributes["class"].Value.Contains("title may-blank")).ToList();
+            var pictures = dokument.DocumentNode.Descendants("img").Where(x => x.Attributes.Contains("src")).ToList();
+
             var listaRekordow = new List<Rekordy>();
             foreach (var link in linki)
             {
                 var rekord = new Rekordy() { nazwa = link.InnerText };
                 listaRekordow.Add(rekord);
+            }
+
+            for (int i = 0; i < pictures.Count; i++)
+            {
+                for (int j = 0; j < listaRekordow.Count; j++)
+                {
+                    listaRekordow[j].picUrl = pictures[i].InnerText;
+                }
             }
 
             return listaRekordow;
@@ -35,13 +45,16 @@ namespace HAPreddit
         {
             //1st
             var listaRekordow = Znajdz();
-            var bufor = new List<string>();
+            var buforNazwa = new List<string>();
+            var buforPic = new List<string>();
             richTextBox1.Clear();
             foreach (var rekord in listaRekordow)
             {
-                bufor.Add(rekord.nazwa);
+                buforNazwa.Add(rekord.nazwa);
+                buforPic.Add(rekord.picUrl);
             }
-            richTextBox1.Text = bufor[licznik];
+            richTextBox1.Text = buforNazwa[licznik] + buforPic[licznik];
+            pictureBox1.ImageLocation = buforPic[licznik];
         }
 
         private void next_Click(object sender, EventArgs e)
