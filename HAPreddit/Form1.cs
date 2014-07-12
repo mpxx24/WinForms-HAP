@@ -21,7 +21,7 @@ namespace HAPreddit
             var listaRekordow = new List<Rekordy>();
             foreach (var link in linki)
             {
-                var rekord = new Rekordy() { nazwa = link.InnerText };
+                var rekord = new Rekordy() { nazwa = link.InnerText};
                 listaRekordow.Add(rekord);
             }
 
@@ -47,13 +47,15 @@ namespace HAPreddit
             var listaRekordow = Znajdz();
             var buforNazwa = new List<string>();
             var buforPic = new List<string>();
+            var buforAdres = new List<string>();
             richTextBox1.Clear();
             foreach (var rekord in listaRekordow)
             {
                 buforNazwa.Add(rekord.nazwa);
                 buforPic.Add(rekord.picUrl);
+                buforAdres.Add(rekord.adres);
             }
-            richTextBox1.Text = buforNazwa[licznik] + buforPic[licznik];
+            richTextBox1.Text = buforNazwa[licznik] + buforAdres[licznik];
             pictureBox1.ImageLocation = buforPic[licznik];
         }
 

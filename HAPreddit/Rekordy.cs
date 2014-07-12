@@ -11,5 +11,6 @@ namespace HAPreddit
     {
         public string nazwa { get; set; }
         public string picUrl{ get; set; }
+        public string adres { get; set; }
     }
 }
