@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -21,7 +22,8 @@ namespace HAPreddit
             var listaRekordow = new List<Rekordy>();
             foreach (var link in linki)
             {
-                var rekord = new Rekordy() { nazwa = link.InnerText};
+                var url = link.Attributes["href"].Value;
+                var rekord = new Rekordy() { nazwa = link.InnerText, adres = url };
                 listaRekordow.Add(rekord);
             }
 
@@ -55,8 +57,21 @@ namespace HAPreddit
                 buforPic.Add(rekord.picUrl);
                 buforAdres.Add(rekord.adres);
             }
-            richTextBox1.Text = buforNazwa[licznik] + buforAdres[licznik];
+            richTextBox1.Text = buforNazwa[licznik] + buforPic[licznik];
             pictureBox1.ImageLocation = buforPic[licznik];
+
+            if (buforAdres[licznik].Contains("/r/csharp/"))
+            {
+                //selfpost
+                pictureBox2.BackColor = Color.Lime;
+                pictureBox3.BackColor = Color.Red;
+            }
+            else
+            {
+                //non-reddit link
+                pictureBox2.BackColor = Color.Red;
+                pictureBox3.BackColor = Color.Lime;
+            }
         }
 
         private void next_Click(object sender, EventArgs e)

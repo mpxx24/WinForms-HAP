@@ -64,6 +64,7 @@
             // 
             // richTextBox1
             // 
+            this.richTextBox1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.richTextBox1.Location = new System.Drawing.Point(138, 12);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.Size = new System.Drawing.Size(377, 187);
@@ -72,7 +73,7 @@
             // 
             // next
             // 
-            this.next.Location = new System.Drawing.Point(535, 60);
+            this.next.Location = new System.Drawing.Point(537, 117);
             this.next.Name = "next";
             this.next.Size = new System.Drawing.Size(75, 40);
             this.next.TabIndex = 4;
@@ -82,7 +83,7 @@
             // 
             // prev
             // 
-            this.prev.Location = new System.Drawing.Point(535, 106);
+            this.prev.Location = new System.Drawing.Point(537, 71);
             this.prev.Name = "prev";
             this.prev.Size = new System.Drawing.Size(75, 40);
             this.prev.TabIndex = 5;
@@ -139,7 +140,7 @@
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.button1);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "C# HTML Agility Pack - browse /r/csharp";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
