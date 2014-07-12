@@ -31,7 +31,7 @@ namespace HAPreddit
             {
                 for (int j = 0; j < listaRekordow.Count; j++)
                 {
-                    listaRekordow[j].picUrl = pictures[i].Attributes["src"].Value;
+                    listaRekordow[i].picUrl = pictures[i].Attributes["src"].Value;
                 }
             }
 
