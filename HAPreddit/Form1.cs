@@ -18,9 +18,9 @@ namespace HAPreddit
             var linki = dokument.DocumentNode.Descendants("a").Where(x => x.Attributes.Contains("class") 
                 && x.Attributes["class"].Value.Contains("title may-blank")).ToList();
             var pictures = dokument.DocumentNode.Descendants("img").Where(x => x.Attributes.Contains("src")).ToList();
-            var upvotes = dokument.DocumentNode.Descendants("div").Where(x => x.Attributes.Contains("class")
+            var likes = dokument.DocumentNode.Descendants("div").Where(x => x.Attributes.Contains("class")
                 && x.Attributes["class"].Value.Contains("score likes")).ToList();
-            var downvotes = dokument.DocumentNode.Descendants("div").Where(x => x.Attributes.Contains("class")
+            var dislikes = dokument.DocumentNode.Descendants("div").Where(x => x.Attributes.Contains("class")
                 && x.Attributes["class"].Value.Contains("score dislikes")).ToList();
             
             var listaRekordow = new List<Rekordy>();
@@ -40,10 +40,10 @@ namespace HAPreddit
                 }
             }
 
-            for (int i = 0; i < upvotes.Count; i++)
+            for (int i = 0; i < likes.Count; i++)
             {
-                listaRekordow[i].likes = upvotes[i].InnerText;
-                listaRekordow[i].dislikes = downvotes[i].InnerText;
+                listaRekordow[i].likes = likes[i].InnerText;
+                listaRekordow[i].dislikes = dislikes[i].InnerText;
             }
 
             return listaRekordow;
