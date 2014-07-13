@@ -27,7 +27,7 @@ namespace HAPreddit
                 listaRekordow.Add(rekord);
             }
 
-            for (int i = 0; i < pictures.Count; i++)
+            for (int i = 0; i < listaRekordow.Count; i++)
             {
                 if (!listaRekordow[i].adres.Contains("/r/csharp/"))
                 {
