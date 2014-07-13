@@ -29,7 +29,11 @@ namespace HAPreddit
 
             for (int i = 0; i < pictures.Count; i++)
             {
-                listaRekordow[i].picUrl = pictures[i].Attributes["src"].Value;
+                if (!listaRekordow[i].adres.Contains("/r/csharp/"))
+                {
+                    listaRekordow[i].picUrl = pictures[0].Attributes["src"].Value;
+                    pictures.RemoveAt(0);
+                }
             }
 
             return listaRekordow;
@@ -43,8 +47,6 @@ namespace HAPreddit
         private void button1_Click(object sender, EventArgs e)
         {
             //1st
-            var selfPost = false;
-            var outsidePost = false;
             var listaRekordow = Znajdz();
             var buforNazwa = new List<string>();
             var buforPic = new List<string>();
@@ -61,7 +63,6 @@ namespace HAPreddit
             if (buforAdres[licznik].Contains("/r/csharp/"))
             {
                 //selfpost
-                selfPost = true;
                 pictureBox2.BackColor = Color.Lime;
                 pictureBox3.BackColor = Color.Red;
 
@@ -71,7 +72,6 @@ namespace HAPreddit
             else
             {
                 //non-reddit link
-                outsidePost = true;
                 pictureBox2.BackColor = Color.Red;
                 pictureBox3.BackColor = Color.Lime;
 
