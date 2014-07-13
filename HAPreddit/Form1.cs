@@ -80,7 +80,7 @@ namespace HAPreddit
                 pictureBox2.BackColor = Color.Lime;
                 pictureBox3.BackColor = Color.Red;
 
-                richTextBox1.Text = "(" + buforUpvotes[licznik] + "|" + buforDownvotes[licznik] + ")" + buforNazwa[licznik];
+                richTextBox1.Text = "(+" + buforUpvotes[licznik] + "|-" + buforDownvotes[licznik] + ")" + buforNazwa[licznik];
                 pictureBox1.ImageLocation = buforPic[licznik];
             }
             else
@@ -89,7 +89,7 @@ namespace HAPreddit
                 pictureBox2.BackColor = Color.Red;
                 pictureBox3.BackColor = Color.Lime;
 
-                richTextBox1.Text = "(" + buforUpvotes[licznik] + "|" + buforDownvotes[licznik] + ")" 
+                richTextBox1.Text = "(+" + buforUpvotes[licznik] + "|-" + buforDownvotes[licznik] + ")" 
                     + buforNazwa[licznik] + "\n" + buforAdres[licznik]; // \n -> Environment.NewLine
                 pictureBox1.ImageLocation = buforPic[licznik];
             }
