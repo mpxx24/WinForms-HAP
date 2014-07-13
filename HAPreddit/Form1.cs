@@ -18,10 +18,8 @@ namespace HAPreddit
             var linki = dokument.DocumentNode.Descendants("a").Where(x => x.Attributes.Contains("class") 
                 && x.Attributes["class"].Value.Contains("title may-blank")).ToList();
             var pictures = dokument.DocumentNode.Descendants("img").Where(x => x.Attributes.Contains("src")).ToList();
-            var likes = dokument.DocumentNode.Descendants("div").Where(x => x.Attributes.Contains("class")
-                && x.Attributes["class"].Value.Contains("score likes")).ToList();
-            var dislikes = dokument.DocumentNode.Descendants("div").Where(x => x.Attributes.Contains("class")
-                && x.Attributes["class"].Value.Contains("score dislikes")).ToList();
+            var pkt = dokument.DocumentNode.Descendants("div").Where(x => x.Attributes.Contains("class")
+                && x.Attributes["class"].Value.Contains("score unvoted")).ToList();
             
             var listaRekordow = new List<Rekordy>();
             foreach (var link in linki)
@@ -40,10 +38,9 @@ namespace HAPreddit
                 }
             }
 
-            for (int i = 0; i < likes.Count; i++)
+            for (int i = 0; i < pkt.Count; i++)
             {
-                listaRekordow[i].likes = likes[i].InnerText;
-                listaRekordow[i].dislikes = dislikes[i].InnerText;
+                listaRekordow[i].punkty = pkt[i].InnerText;
             }
 
             return listaRekordow;
@@ -61,8 +58,7 @@ namespace HAPreddit
             var buforNazwa = new List<string>();
             var buforPic = new List<string>();
             var buforAdres = new List<string>();
-            var buforUpvotes = new List<string>();
-            var buforDownvotes = new List<string>();
+            var buforPunkty = new List<string>();
             richTextBox1.Clear();
 
             foreach (var rekord in listaRekordow)
@@ -70,8 +66,7 @@ namespace HAPreddit
                 buforNazwa.Add(rekord.nazwa);
                 buforPic.Add(rekord.picUrl);
                 buforAdres.Add(rekord.adres);
-                buforUpvotes.Add(rekord.likes);
-                buforDownvotes.Add(rekord.dislikes);
+                buforPunkty.Add(rekord.punkty);
             }
 
             if (buforAdres[licznik].Contains("/r/csharp/"))
@@ -80,7 +75,7 @@ namespace HAPreddit
                 pictureBox2.BackColor = Color.Lime;
                 pictureBox3.BackColor = Color.Red;
 
-                richTextBox1.Text = "(+" + buforUpvotes[licznik] + "|-" + buforDownvotes[licznik] + ")" + buforNazwa[licznik];
+                richTextBox1.Text = "(" + buforPunkty[licznik] + ")" + buforNazwa[licznik];
                 pictureBox1.ImageLocation = buforPic[licznik];
             }
             else
@@ -89,7 +84,7 @@ namespace HAPreddit
                 pictureBox2.BackColor = Color.Red;
                 pictureBox3.BackColor = Color.Lime;
 
-                richTextBox1.Text = "(+" + buforUpvotes[licznik] + "|-" + buforDownvotes[licznik] + ")" 
+                richTextBox1.Text = "(" + buforPunkty[licznik] + ")" 
                     + buforNazwa[licznik] + "\n" + buforAdres[licznik]; // \n -> Environment.NewLine
                 pictureBox1.ImageLocation = buforPic[licznik];
             }
