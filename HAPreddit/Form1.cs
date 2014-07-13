@@ -18,6 +18,10 @@ namespace HAPreddit
             var linki = dokument.DocumentNode.Descendants("a").Where(x => x.Attributes.Contains("class") 
                 && x.Attributes["class"].Value.Contains("title may-blank")).ToList();
             var pictures = dokument.DocumentNode.Descendants("img").Where(x => x.Attributes.Contains("src")).ToList();
+            var upvotes = dokument.DocumentNode.Descendants("div").Where(x => x.Attributes.Contains("class")
+                && x.Attributes["class"].Value.Contains("score likes")).ToList();
+            var downvotes = dokument.DocumentNode.Descendants("div").Where(x => x.Attributes.Contains("class")
+                && x.Attributes["class"].Value.Contains("score dislikes")).ToList();
             
             var listaRekordow = new List<Rekordy>();
             foreach (var link in linki)
@@ -36,6 +40,12 @@ namespace HAPreddit
                 }
             }
 
+            for (int i = 0; i < upvotes.Count; i++)
+            {
+                listaRekordow[i].likes = upvotes[i].InnerText;
+                listaRekordow[i].dislikes = downvotes[i].InnerText;
+            }
+
             return listaRekordow;
         }
 
@@ -51,6 +61,8 @@ namespace HAPreddit
             var buforNazwa = new List<string>();
             var buforPic = new List<string>();
             var buforAdres = new List<string>();
+            var buforUpvotes = new List<string>();
+            var buforDownvotes = new List<string>();
             richTextBox1.Clear();
 
             foreach (var rekord in listaRekordow)
@@ -58,6 +70,8 @@ namespace HAPreddit
                 buforNazwa.Add(rekord.nazwa);
                 buforPic.Add(rekord.picUrl);
                 buforAdres.Add(rekord.adres);
+                buforUpvotes.Add(rekord.likes);
+                buforDownvotes.Add(rekord.dislikes);
             }
 
             if (buforAdres[licznik].Contains("/r/csharp/"))
@@ -66,7 +80,7 @@ namespace HAPreddit
                 pictureBox2.BackColor = Color.Lime;
                 pictureBox3.BackColor = Color.Red;
 
-                richTextBox1.Text = buforNazwa[licznik];
+                richTextBox1.Text = "(" + buforUpvotes[licznik] + "|" + buforDownvotes[licznik] + ")" + buforNazwa[licznik];
                 pictureBox1.ImageLocation = buforPic[licznik];
             }
             else
@@ -75,7 +89,8 @@ namespace HAPreddit
                 pictureBox2.BackColor = Color.Red;
                 pictureBox3.BackColor = Color.Lime;
 
-                richTextBox1.Text = buforNazwa[licznik] + "\n" + buforAdres[licznik]; // \n -> Environment.NewLine
+                richTextBox1.Text = "(" + buforUpvotes[licznik] + "|" + buforDownvotes[licznik] + ")" 
+                    + buforNazwa[licznik] + "\n" + buforAdres[licznik]; // \n -> Environment.NewLine
                 pictureBox1.ImageLocation = buforPic[licznik];
             }
 
